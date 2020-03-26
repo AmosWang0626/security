@@ -9,31 +9,25 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 /**
- * PROJECT: security
+ * DESCRIPTION: User
  *
- * @author Daoyuan
- * @apiNote 城市实体类
- * @date 2018/2/9
+ * @author <a href="mailto:daoyuan0626@gmail.com">amos.wang</a>
+ * @date 2020/3/26
  */
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @Data
 @Entity
-@Table(name = "dev_city")
-public class CityEntity extends BaseEntity {
+@Table(name = "org_user")
+public class UserEntity extends BaseEntity {
 
-    /**
-     * 城市名字
-     */
+    private String username;
+    private String password;
     private String name;
+    private Integer age;
     /**
-     * 城市级别
+     * 0: 禁用; 1: 启用
      */
-    private Integer level;
-
-    /**
-     * 乐观锁 Version
-     */
-    private Integer version;
+    private Integer status;
 
 }

@@ -1,8 +1,8 @@
 package cn.amos.security.dao.mapper;
 
+import cn.amos.security.common.api.BaseRepository;
 import cn.amos.security.dao.entity.CityEntity;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -15,7 +15,7 @@ import java.util.List;
  * @date 2018/2/9
  */
 @Repository
-public interface CityMapper extends CrudRepository<CityEntity, Long> {
+public interface CityMapper extends BaseRepository<CityEntity, String> {
 
     /**
      * find by name
