@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>第三方登录</title>
+    <link rel="stylesheet" type="text/css" href="/static/iview.css"/>
+    <script type="text/javascript" src="/static/vue.min.js"></script>
+    <script type="text/javascript" src="/static/iview.min.js"></script>
+    <script type="text/javascript" src="/static/vue-router.js"></script>
+</head>
+<body>
+<div id="app">
+    <i-form :model="login" :rules="loginRule" :label-width="90"
+            style="width: 300px; border-radius: 3px 3px 0 0; text-align: center">
+        <i-form-item><h1 style="width: 300px; margin: 10px; text-align: center">Hello World</h1></i-form-item>
+        <i-form-item label="账号" prop="no">
+            <i-input v-model="login.no" size="large" style="width: 300px; margin: 10px" placeholder="请输入账号"></i-input>
+        </i-form-item>
+        <i-form-item label="密码" prop="pwd">
+            <i-input v-model="login.pwd" size="large" style="width: 300px; margin: 10px" placeholder="请输入密码"></i-input>
+        </i-form-item>
+        <i-form-item>
+            <img width="49" src="https://assets-cdn.github.com/images/modules/logos_page/Octocat.png">
+            <i-button type="primary" v-on:click="handleSubmit('login')">登录</i-button>
+            <i-button type="warning" v-on:click="handleReset('login')" style="margin-left: 8px">重置</i-button>
+        </i-form-item>
+    </i-form>
+</div>
+<script>
+    const router = new VueRouter({
+        routes: [
+            {path: 'authorize', redirect: {path: 'https://github.com/login/oauth/authorize'}}
+        ]
+    });
+    new Vue({
+        router,
+        el: '#app',
+        data() {
+            return {
+                login: {
+                    no: null,
+                    pwd: null
+                },
+                loginRule: {
+                    no: [
+                        {
+                            required: true,
+                            message: '账号不能为空呦!',
+                            trigger: 'blur'
+                        }
+                    ],
+                    pwd: [
+                        {
+                            required: true,
+                            message: '密码也不能为空!',
+                            trigger: 'blur'
+                        }
+                    ],
+                }
+            }
+        },
+        methods: {
+            handleSubmit(name) {
+                this.$refs[name].validate((valid) => {
+                    if (valid) {
+                        console.info("使用GitHub账号登录!");
+                        // this.$router.push({path: 'https://github.com/login/oauth/authorize', query: {client_id: 123456}})
+                        // this.$router.push({path: 'authorize', query: {client_id: 123456}})
+                    } else {
+                        this.$Message.error('请先确认输入信息格式~~~');
+                    }
+                });
+            },
+            handleReset(name) {
+                this.$refs[name].resetFields();
+            }
+        }
+    });
+</script>
+</body>
+</html>
