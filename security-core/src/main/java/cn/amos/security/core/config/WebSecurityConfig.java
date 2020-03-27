@@ -1,6 +1,5 @@
 package cn.amos.security.core.config;
 
-import cn.amos.security.core.pojo.dto.SecurityUser;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -24,8 +23,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/", "/").permitAll()
+        http
+                .authorizeRequests()
+                .antMatchers("/", "/home").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -39,8 +39,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     @Override
     public UserDetailsService userDetailsService() {
-        UserDetails user = User
-                .withUserDetails(new SecurityUser("amos", "123", 1))
+        UserDetails user = User.withDefaultPasswordEncoder()
+                .username("user").password("password")
                 .roles("USER")
                 .build();
 

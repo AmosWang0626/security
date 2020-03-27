@@ -11,11 +11,10 @@ import java.util.List;
  * PROJECT: security
  *
  * @author Daoyuan
- * @apiNote 城市 Mapper
  * @date 2018/2/9
  */
 @Repository
-public interface CityMapper extends BaseRepository<CityEntity, String> {
+public interface CityRepository extends BaseRepository<CityEntity, String> {
 
     /**
      * find by name

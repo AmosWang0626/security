@@ -8,9 +8,8 @@ import org.springframework.stereotype.Repository;
  * PROJECT: security
  *
  * @author Daoyuan
- * @apiNote 城市 Mapper
  * @date 2018/2/9
  */
 @Repository
-public interface UserMapper extends BaseRepository<UserEntity, String> {
+public interface UserRepository extends BaseRepository<UserEntity, String> {
 }

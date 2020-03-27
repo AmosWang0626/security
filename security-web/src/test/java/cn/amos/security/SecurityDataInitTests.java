@@ -2,8 +2,8 @@ package cn.amos.security;
 
 import cn.amos.security.dao.entity.CityEntity;
 import cn.amos.security.dao.entity.UserEntity;
-import cn.amos.security.dao.mapper.CityMapper;
-import cn.amos.security.dao.mapper.UserMapper;
+import cn.amos.security.dao.mapper.CityRepository;
+import cn.amos.security.dao.mapper.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -16,9 +16,9 @@ import java.util.Random;
 class SecurityDataInitTests {
 
     @Resource
-    private CityMapper cityMapper;
+    private CityRepository cityRepository;
     @Resource
-    private UserMapper userMapper;
+    private UserRepository userRepository;
 
     public static void main(String[] args) {
 
@@ -38,7 +38,7 @@ class SecurityDataInitTests {
                     .setAge(age)
                     .setStatus(1));
         }
-        userMapper.saveAll(list);
+        userRepository.saveAll(list);
     }
 
     @Test
@@ -58,7 +58,7 @@ class SecurityDataInitTests {
                     .setLevel(2)
                     .setVersion(1));
         }
-        cityMapper.saveAll(list);
+        cityRepository.saveAll(list);
     }
 
 }

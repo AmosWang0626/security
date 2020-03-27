@@ -2,7 +2,7 @@ package cn.amos.security.core.service.impl;
 
 import cn.amos.security.core.service.CityService;
 import cn.amos.security.dao.entity.CityEntity;
-import cn.amos.security.dao.mapper.CityMapper;
+import cn.amos.security.dao.mapper.CityRepository;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -19,14 +19,14 @@ import java.time.LocalDateTime;
 public class CityServiceImpl implements CityService {
 
     @Resource
-    private CityMapper cityMapper;
+    private CityRepository cityRepository;
 
     @Override
     public String addCity(String name) {
         CityEntity cityEntity = new CityEntity();
         cityEntity.setName(name);
         cityEntity.setCreateTime(LocalDateTime.now());
-        cityMapper.save(cityEntity);
+        cityRepository.save(cityEntity);
         return "保存城市" + name + "成功!";
     }
 }
