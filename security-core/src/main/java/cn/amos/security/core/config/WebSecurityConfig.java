@@ -17,8 +17,8 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
  * @author amos.wang
  * @date 2020/3/26 16:43
  */
-@Configuration
-@EnableWebSecurity
+//@Configuration
+//@EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override

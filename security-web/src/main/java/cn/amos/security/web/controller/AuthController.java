@@ -4,7 +4,6 @@ import cn.amos.security.common.utils.EncryptionUtil;
 import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,10 +24,10 @@ import java.util.Map;
  * @date 2018/12/13
  */
 @Controller
-@RequestMapping("login")
-public class ImSignController {
+@RequestMapping("auth")
+public class AuthController {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ImSignController.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AuthController.class);
 
     private static final String CODE_KEY = "CODE2018";
     private static final String TOKEN_KEY = "TOKEN2018";
@@ -54,8 +53,8 @@ public class ImSignController {
      * 跳转到登录界面
      */
     @GetMapping
-    public String oauth() {
-        return "IMLogin";
+    public String authLogin() {
+        return "AuthLogin";
     }
 
     /**
@@ -75,9 +74,9 @@ public class ImSignController {
     public void qqSign(@PathVariable("account") String account, @PathVariable("password") String password, HttpServletResponse response) throws IOException {
         LOGGER.info(MessageFormat.format("QQ登录! 账号: {0}, 密码: {1}", account, password));
         // code
-        String code = new BCryptPasswordEncoder().encode(account);
+        String code = EncryptionUtil.encrypt(account, password);
         LOGGER.info("QQ callback code " + code);
-        response.sendRedirect("/login/qq/getToken/" + code);
+        response.sendRedirect("/auth/qq/getToken/" + code);
     }
 
     /**
@@ -90,7 +89,7 @@ public class ImSignController {
         // token
         String token = EncryptionUtil.encrypt(account, TOKEN_KEY);
         LOGGER.info("QQ callback token " + token);
-        response.sendRedirect("/login/qq/getUserMessage/" + token);
+        response.sendRedirect("/auth/qq/getUserMessage/" + token);
     }
 
     /**
@@ -103,9 +102,9 @@ public class ImSignController {
         User user = USER_MESSAGE.get(account);
         if (user != null) {
             LOGGER.info(user.getName() + " 通过 QQ 登录 IM 成功!");
-            response.sendRedirect("/login/real/login/" + user.getName());
+            response.sendRedirect("/auth/real/login/" + user.getName());
         } else {
-            response.sendRedirect("/login/qq/error");
+            response.sendRedirect("/auth/qq/error");
         }
     }
 

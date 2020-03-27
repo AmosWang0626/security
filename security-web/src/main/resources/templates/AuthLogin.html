@@ -43,10 +43,10 @@
                 if (this.account && this.password) {
                     if (this.qqFlag) {
                         console.info('QQ 登录!');
-                        location.href = '/login/qq/sign/' + this.account + '/' + this.password;
+                        location.href = '/auth/qq/sign/' + this.account + '/' + this.password;
                     } else {
                         console.info('普通 登录!');
-                        location.href = '/login/normal/' + this.account + '/' + this.password;
+                        location.href = '/auth/normal/' + this.account + '/' + this.password;
                     }
                 } else {
                     this.$Message.warning("账号密码不能为空");
