@@ -17,6 +17,7 @@ import javax.annotation.Resource;
  * @date 2018/11/16
  */
 @RestController
+@RequestMapping("cache")
 public class CacheController {
 
     @Resource
