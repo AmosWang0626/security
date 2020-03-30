@@ -6,6 +6,7 @@ import cn.amos.security.dao.mapper.CityRepository;
 import cn.amos.security.dao.mapper.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -26,15 +27,20 @@ class SecurityDataInitTests {
 
     @Test
     void initUser() {
+        List<Integer> ids = new ArrayList<>();
         String[] nameArr = {"木婉清", "王语嫣", "任盈盈", "程灵素", "周芷若", "俞莲舟", "宋远桥", "俞岱岩", "张松溪", "张翠山", "殷梨亭", "莫声谷"};
         Random random = new Random();
         List<UserEntity> list = new ArrayList<>();
         for (String name : nameArr) {
-            int age = random.nextInt(10) + 18;
+            int age = random.nextInt(nameArr.length + 3) + 12;
+            while (ids.contains(age)) {
+                age = random.nextInt(nameArr.length + 3) + 12;
+            }
+            ids.add(age);
             list.add(new UserEntity()
                     .setUsername("U" + age)
+                    .setPassword(new BCryptPasswordEncoder().encode("000"))
                     .setName(name)
-                    .setPassword("000")
                     .setAge(age)
                     .setStatus(1));
         }
