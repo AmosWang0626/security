@@ -1,6 +1,8 @@
 package cn.amos.security.web.controller;
 
 import cn.amos.security.common.generic.GenericResponse;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +19,7 @@ import java.util.Date;
  * @author AMOS
  * @date 2018/8/10
  */
+@Api(tags = "A01 接口")
 @RestController
 @RequestMapping("api")
 public class ApiController {
@@ -31,6 +34,7 @@ public class ApiController {
      * @param content 内容
      * @return 通用返回
      */
+    @ApiOperation("接收参数无注解")
     @GetMapping(value = "none")
     public GenericResponse<String> none(String name, String content) {
         return genericRequest(name, content);
@@ -43,6 +47,7 @@ public class ApiController {
      * @param content 内容
      * @return 通用返回
      */
+    @ApiOperation("@PathParam——接收参数")
     @GetMapping(value = "pathParam")
     public GenericResponse<String> pathParam(@PathParam("name") String name, @PathParam("content") String content) {
         return genericRequest(name, content);
@@ -55,6 +60,7 @@ public class ApiController {
      * @param content 内容
      * @return 通用返回
      */
+    @ApiOperation("@PathVariable——接收参数")
     @GetMapping(value = "pathVariable/{name}/{content}")
     public GenericResponse<String> pathVariable(@PathVariable("name") String name, @PathVariable("content") String content) {
         return genericRequest(name, content);
@@ -67,12 +73,16 @@ public class ApiController {
      * @param content 内容
      * @return 通用返回
      */
+    @ApiOperation("@RequestParam——接收参数")
     @GetMapping(value = "requestParam")
     public GenericResponse<String> requestParam(@RequestParam("name") String name, @RequestParam("content") String content) {
         return genericRequest(name, content);
     }
 
-    private GenericResponse<String> genericRequest(@RequestParam("name") String name, @RequestParam("content") String content) {
+    /**
+     * 生成返回结果
+     */
+    private GenericResponse<String> genericRequest(String name, String content) {
         if (StringUtils.isAnyBlank(name, content)) {
             return GenericResponse.ERROR_PARAM;
         }

@@ -1,11 +1,13 @@
 package cn.amos.security.web.controller;
 
+import cn.amos.security.common.generic.GenericResponse;
+import cn.amos.security.core.pojo.vo.MessageVO;
 import cn.amos.security.core.service.CacheService;
+import com.alibaba.fastjson.JSON;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -16,8 +18,9 @@ import javax.annotation.Resource;
  * @author Daoyuan
  * @date 2018/11/16
  */
+@Api(tags = "B01 缓存")
 @RestController
-@RequestMapping("cache")
+@RequestMapping("caches")
 public class CacheController {
 
     @Resource
@@ -26,48 +29,40 @@ public class CacheController {
     @Resource
     private RedisTemplate<String, String> redisTemplate;
 
-    /**
-     * 测试缓存
-     *
-     * @param id 缓存对应唯一参数
-     * @return message vo
-     */
-    @RequestMapping(value = "add/{id}", method = RequestMethod.GET)
-    public String message(@PathVariable("id") Integer id) {
+
+    @ApiOperation("添加——如果缓存中有则不会添加，并返回缓存中的数据")
+    @PostMapping(value = "add")
+    public String message(Integer id) {
         return cacheService.findMessage(id);
     }
 
-    /**
-     * 测试缓存2
-     *
-     * @param id 缓存对应唯一参数
-     * @return message vo
-     */
-    @RequestMapping(value = "add2/{id}", method = RequestMethod.GET)
-    public String message2(@PathVariable("id") Integer id) {
+    @ApiOperation("添加——无条件添加")
+    @PostMapping(value = "add2")
+    public String message2(Integer id) {
         return cacheService.findMessage2(id);
     }
 
-    /**
-     * 删除缓存
-     *
-     * @param id 缓存对应唯一参数
-     * @return success
-     */
-    @RequestMapping(value = "del/{id}", method = RequestMethod.GET)
+    @ApiOperation("添加——无条件添加")
+    @PostMapping(value = "add3")
+    public String message3(@RequestBody MessageVO vo) {
+        return cacheService.findMessage3(vo);
+    }
+
+    @ApiOperation("根据ID删除")
+    @DeleteMapping(value = "del/{id}")
     public String messageDel(@PathVariable("id") Integer id) {
         return cacheService.delMessage(id);
     }
 
-    /**
-     * 获取redis中的值
-     *
-     * @param key key
-     * @return value
-     */
-    @RequestMapping(value = "get/{key}", method = RequestMethod.GET)
+    @ApiOperation("根据KEY获取")
+    @GetMapping(value = "get/{key}")
     public String message(@PathVariable("key") String key) {
-        return redisTemplate.opsForValue().get(key);
+        String value = redisTemplate.opsForValue().get(key);
+        if (value == null) {
+            return JSON.toJSONString(GenericResponse.ERROR_PARAM);
+        }
+
+        return value;
     }
 
 }

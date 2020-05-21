@@ -1,7 +1,7 @@
 package cn.amos.security.core.service.impl;
 
-import cn.amos.security.core.service.CacheService;
 import cn.amos.security.core.pojo.vo.MessageVO;
+import cn.amos.security.core.service.CacheService;
 import com.alibaba.fastjson.JSON;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
@@ -45,6 +45,15 @@ public class CacheServiceImpl implements CacheService {
         message.setTime(System.currentTimeMillis());
         message.setContent("先天下之忧而忧，后天下之乐而乐。");
         return JSON.toJSONString(message);
+    }
+
+    /**
+     * - @CachePut 无条件调用方法, 并放入缓存;
+     */
+    @Override
+    @CachePut(value = "hello", key = "'message_' + #vo.id")
+    public String findMessage3(MessageVO vo) {
+        return JSON.toJSONString(vo);
     }
 
     /**

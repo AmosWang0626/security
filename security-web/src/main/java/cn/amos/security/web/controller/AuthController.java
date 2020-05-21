@@ -1,6 +1,8 @@
 package cn.amos.security.web.controller;
 
 import cn.amos.security.common.utils.EncryptionUtil;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.Data;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +25,7 @@ import java.util.Map;
  * @author Daoyuan
  * @date 2018/12/13
  */
+@Api(tags = "C01 模拟第三方登录")
 @Controller
 @RequestMapping("auth")
 public class AuthController {
@@ -60,6 +63,7 @@ public class AuthController {
     /**
      * 正常登录
      */
+    @ApiOperation("夺命连环掉")
     @GetMapping("normal/{account}/{password}")
     @ResponseBody
     public String normal(@PathVariable("account") String account, @PathVariable("password") String password) throws IOException {

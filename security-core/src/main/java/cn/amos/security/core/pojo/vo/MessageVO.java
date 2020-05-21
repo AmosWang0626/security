@@ -1,6 +1,7 @@
 package cn.amos.security.core.pojo.vo;
 
 import com.alibaba.fastjson.JSON;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
@@ -12,21 +13,17 @@ import lombok.Data;
  */
 @Data
 public class MessageVO {
-    /**
-     * id
-     */
+
+    @ApiModelProperty(value = "ID", required = true, example = "1433233")
     private Integer id;
-    /**
-     * 标题
-     */
+
+    @ApiModelProperty(value = "标题", example = "岳阳楼记")
     private String title;
-    /**
-     * 内容
-     */
+
+    @ApiModelProperty(value = "内容", example = "先天下之忧而忧，后天下之乐而乐。")
     private String content;
-    /**
-     * 时间戳
-     */
+
+    @ApiModelProperty(value = "时间戳", hidden = true)
     private Long time;
 
     @Override

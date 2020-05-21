@@ -1,5 +1,7 @@
 package cn.amos.security.core.service;
 
+import cn.amos.security.core.pojo.vo.MessageVO;
+
 /**
  * PROJECT: security
  * DESCRIPTION: security
@@ -25,6 +27,14 @@ public interface CacheService {
      * @return message
      */
     String findMessage2(Integer id);
+
+    /**
+     * 获取message，并放入缓存。
+     *
+     * @param vo 缓存信息
+     * @return message
+     */
+    String findMessage3(MessageVO vo);
 
     /**
      * 删除 message 缓存
