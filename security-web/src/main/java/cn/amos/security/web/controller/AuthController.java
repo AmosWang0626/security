@@ -52,28 +52,21 @@ public class AuthController {
      * 4.request QQ by [token]                      QQ callback QQ user info
      */
 
-    /**
-     * 跳转到登录界面
-     */
+    @ApiOperation("跳转到登录页面")
     @GetMapping
     public String authLogin() {
         return "AuthLogin";
     }
 
-    /**
-     * 正常登录
-     */
-    @ApiOperation("夺命连环掉")
+    @ApiOperation("正常登录")
     @GetMapping("normal/{account}/{password}")
     @ResponseBody
     public String normal(@PathVariable("account") String account, @PathVariable("password") String password) throws IOException {
         return account + " 登录成功!";
     }
 
-    /**
-     * QQ 登录
-     */
-    @GetMapping("qq/sign/{account}/{password}")
+    @ApiOperation("QQ登录-01")
+    @GetMapping("qq1/sign/{account}/{password}")
     @ResponseBody
     public void qqSign(@PathVariable("account") String account, @PathVariable("password") String password, HttpServletResponse response) throws IOException {
         LOGGER.info(MessageFormat.format("QQ登录! 账号: {0}, 密码: {1}", account, password));
@@ -83,10 +76,8 @@ public class AuthController {
         response.sendRedirect("/auth/qq/getToken/" + code);
     }
 
-    /**
-     * 通过上一步 QQ 返回的 code，请求 QQ 获取用户token
-     */
-    @GetMapping("qq/getToken/{code}")
+    @ApiOperation("QQ登录-02[根据QQ返回的code，请求QQ用户token]")
+    @GetMapping("qq2/getToken/{code}")
     @ResponseBody
     public void getToken(@PathVariable("code") String code, HttpServletResponse response) throws IOException {
         String account = EncryptionUtil.decrypt(code, CODE_KEY);
@@ -96,10 +87,8 @@ public class AuthController {
         response.sendRedirect("/auth/qq/getUserMessage/" + token);
     }
 
-    /**
-     * 通过上一步 QQ 返回的 token，请求 QQ 获取用户信息
-     */
-    @GetMapping("qq/getUserMessage/{token}")
+    @ApiOperation("QQ登录-03[根据QQ返回的token，请求QQ用户信息]")
+    @GetMapping("qq3/getUserMessage/{token}")
     @ResponseBody
     public void getUserMessage(@PathVariable("token") String token, HttpServletResponse response) throws IOException {
         String account = EncryptionUtil.decrypt(token, TOKEN_KEY);
@@ -112,22 +101,18 @@ public class AuthController {
         }
     }
 
-    /**
-     * 我方真实登录
-     */
-    @GetMapping("real/login/{name}")
+    @ApiOperation("QQ登录-04[获取QQ用户信息成功，提示用户登录成功]")
+    @GetMapping("qq4/login/{name}")
     @ResponseBody
     public String getUserMessage(@PathVariable("name") String name) {
         return name + " 登录成功!";
     }
 
-    /**
-     * QQ 账号或密码错误
-     */
-    @GetMapping("qq/error")
+    @ApiOperation("QQ登录-04[获取QQ用户信息失败，提示QQ账号或密码错误]")
+    @GetMapping("qq4/error")
     @ResponseBody
     public String getUserMessage() {
-        return "QQ 账号或密码错误!";
+        return "QQ账号或密码错误!";
     }
 
     @Data

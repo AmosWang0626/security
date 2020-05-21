@@ -22,9 +22,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity security) throws Exception {
         security.authorizeRequests()
-                //.antMatchers("/auth/**", "/static/**", "/doc.html").permitAll()
-                .anyRequest().permitAll()
-                //.and().authorizeRequests().anyRequest().authenticated()
+                .antMatchers("/auth/**", "/static/**", "/v2/api-docs",
+                        "/webjars/js/**", "/webjars/css/**", "/swagger-resources/**").permitAll()
+                .and().authorizeRequests().anyRequest().authenticated()
                 .and().formLogin().permitAll() // 使用自带 formLogin
                 .and().logout().permitAll();
         // 关闭CSRF，使得 Swagger RestfulApi 正常运行

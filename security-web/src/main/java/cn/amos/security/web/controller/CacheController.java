@@ -42,7 +42,7 @@ public class CacheController {
         return cacheService.findMessage2(id);
     }
 
-    @ApiOperation("添加——无条件添加")
+    @ApiOperation("添加——无条件添加详细信息")
     @PostMapping(value = "add3")
     public String message3(@RequestBody MessageVO vo) {
         return cacheService.findMessage3(vo);
