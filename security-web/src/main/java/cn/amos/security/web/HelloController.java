@@ -1,22 +1,18 @@
-package cn.amos.security.web.controller;
+package cn.amos.security.web;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * DESCRIPTION: Security Controller
+ * DESCRIPTION: Hello
  *
  * @author <a href="mailto:daoyuan0626@gmail.com">amos.wang</a>
- * @date 2020/3/29
+ * @date 2021/2/18
  */
-@Api(tags = "Z01 基础信息")
 @RestController
-public class SecurityController {
+public class HelloController {
 
     @GetMapping
-    @ApiOperation("第一行代码")
     public String hello() {
         return "Hello World!";
     }

@@ -1,13 +1,14 @@
 package cn.amos.security.dao.entity;
 
-import cn.amos.security.common.api.BaseEntity;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -18,17 +19,22 @@ import java.util.Collection;
  * @author <a href="mailto:daoyuan0626@gmail.com">amos.wang</a>
  * @date 2020/3/26
  */
-@EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @Data
 @Entity
-@Table(name = "org_user")
-public class UserEntity extends BaseEntity implements UserDetails {
+@Table(name = "security_user")
+public class UserEntity implements UserDetails {
+
+    @Id
+    @GeneratedValue(generator = "base-uuid")
+    @GenericGenerator(name = "base-uuid", strategy = "uuid")
+    private String id;
 
     private String username;
     private String password;
     private String name;
     private Integer age;
+
     /**
      * 0: 禁用; 1: 启用
      */

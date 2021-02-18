@@ -1,4 +1,4 @@
-package cn.amos.security.common.api;
+package cn.amos.security.dao.api;
 
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;

@@ -1,4 +1,4 @@
-package cn.amos.security.core.service.impl;
+package cn.amos.security.core.service;
 
 import cn.amos.security.dao.mapper.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 
 /**
- * 模块名称: UserDetailsService
- * 模块描述: 根据用户名 加载用户信息 UserDetails
+ * 根据 用户名 从数据库加载用户信息 UserDetails，
+ * 相应的 UserEntity 实现了 UserDetails
  *
  * @author amos.wang
  * @date 2020/3/30 12:32

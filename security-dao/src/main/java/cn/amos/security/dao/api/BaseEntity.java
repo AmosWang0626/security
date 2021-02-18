@@ -1,4 +1,4 @@
-package cn.amos.security.common.api;
+package cn.amos.security.dao.api;
 
 import lombok.Getter;
 import lombok.Setter;

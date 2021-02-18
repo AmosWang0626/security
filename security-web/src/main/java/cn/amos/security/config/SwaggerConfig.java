@@ -1,4 +1,4 @@
-package cn.amos.security.core.config;
+package cn.amos.security.config;
 
 import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,7 +19,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 import java.util.*;
 
 /**
- * PROJECT: base
+ * PROJECT: security
  * DESCRIPTION: SwaggerConfig
  *
  * @author amos
@@ -57,7 +57,7 @@ public class SwaggerConfig {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 .title("简一（Security）")
-                .description("技术栈: Spring Boot | JPA | Redis | Swagger-knife4j")
+                .description("技术栈: Spring Boot | JPA + h2database")
                 .contact(new Contact("AmosWang0626", null, "daoyuan0626@gmail.com"))
                 .version("1.0")
                 .build();
