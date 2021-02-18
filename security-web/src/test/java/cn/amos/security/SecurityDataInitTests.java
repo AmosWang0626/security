@@ -19,6 +19,8 @@ class SecurityDataInitTests {
     @Resource
     private PasswordEncoder passwordEncoder;
 
+    private static final String DEFAULT_PASSWORD = "000000";
+
     @Test
     void initUser() {
         List<Integer> ids = new ArrayList<>();
@@ -33,7 +35,7 @@ class SecurityDataInitTests {
             ids.add(age);
             list.add(new UserEntity()
                     .setUsername("U" + age)
-                    .setPassword(passwordEncoder.encode("000"))
+                    .setPassword(passwordEncoder.encode(DEFAULT_PASSWORD))
                     .setName(name)
                     .setAge(age)
                     .setStatus(1));

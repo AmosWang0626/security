@@ -27,7 +27,7 @@ public class UserEntity implements UserDetails {
 
     @Id
     @GeneratedValue(generator = "base-uuid")
-    @GenericGenerator(name = "base-uuid", strategy = "uuid")
+    @GenericGenerator(name = "base-uuid", strategy = "org.hibernate.id.UUIDGenerator")
     private String id;
 
     private String username;
