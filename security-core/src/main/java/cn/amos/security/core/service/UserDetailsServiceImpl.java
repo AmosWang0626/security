@@ -15,7 +15,7 @@ import javax.annotation.Resource;
  * @author amos.wang
  * @date 2020/3/30 12:32
  */
-@Service
+@Service("userDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Resource
