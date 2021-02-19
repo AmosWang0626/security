@@ -1,9 +1,14 @@
 package cn.amos.security.config;
 
+import cn.amos.security.core.service.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
+
+import javax.annotation.Resource;
 
 /**
  * DESCRIPTION: 控制资源访问配置
@@ -14,6 +19,11 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Resource
+    private UserDetailsService userDetailsService;
+    @Resource
+    private PersistentTokenRepository persistentTokenRepository;
 
     /**
      * 开放 swagger 和 h2database 相关资源访问（当然有些不安全，生产环境一般不会开放 swagger）
@@ -46,6 +56,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().logout()
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login.html").permitAll()
+
+                // 记住我
+                .and().rememberMe().tokenRepository(persistentTokenRepository)
+                .tokenValiditySeconds(3600)
+                .userDetailsService(userDetailsService)
 
                 // 设置同源策略，用于 h2 管理后台页面加载
                 .and().headers().frameOptions().sameOrigin()
