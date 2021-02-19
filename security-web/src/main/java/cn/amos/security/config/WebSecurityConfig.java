@@ -37,13 +37,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().formLogin()
                 .loginPage("/login.html")
                 .loginProcessingUrl("/user/login")
-                .defaultSuccessUrl("/test/index").permitAll()
+                .defaultSuccessUrl("/index.html").permitAll()
 
                 // 403
                 .and().exceptionHandling().accessDeniedPage("/403.html")
 
                 // 登出
-                .and().logout().permitAll()
+                .and().logout()
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login.html").permitAll()
 
                 // 设置同源策略，用于 h2 管理后台页面加载
                 .and().headers().frameOptions().sameOrigin()
