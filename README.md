@@ -4,6 +4,8 @@
 
 默认用户名：`admin` 密码：`000000`，在 `DataInitConfig` 类中初始化的。
 
+技术整合能力。一上来就整合，容易混淆，可以先分散学习，了解都有哪些功能，最后整合，消化吸收。
+
 ## 技术栈
 
 - spring security + oauth2 + jwt
@@ -19,11 +21,11 @@
 
 ## 学习概述
 
-#### Spring Security
+#### 1. Spring Security
 
-> **身份验证**、**授权**和**针对常见攻击的保护**。
+> Spring Security是一套安全框架，基于角色的权限控制对用户的访问权限进行控制，核心思想是通过一系列的 Filter Chain 来进行拦截过滤。
 
-- 本质上就是一系列过滤器
+- 核心功能是：**认证 Authentication**、**授权 Authorization** 和 **针对常见攻击的保护**
 - 过滤器入口：`DelegatingFilterProxy`
 
 ---
@@ -43,3 +45,12 @@
 
 - @PreFilter("filterObject.username == 'admin'") 传入参数过滤
 - @PostFilter("filterObject.age != null and filterObject.age % 2 == 0") 返回结果过滤
+
+#### 2. OAuth2
+
+> OAuth2 是一种授权机制，主要用来颁发令牌（token）
+
+最常见的例子就是通过QQ、微信登录第三方网站。
+
+- 单体架构，一般用不到 Oauth2，Spring Security已足够
+- 微服务架构，Oauth2可用作用户账号密码登录鉴权，微服务间通过公钥私钥访问鉴权

@@ -3,15 +3,11 @@ package cn.amos.security.dao.entity;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import java.util.Collection;
 
 /**
  * DESCRIPTION: User
@@ -23,7 +19,7 @@ import java.util.Collection;
 @Data
 @Entity
 @Table(name = "security_user")
-public class UserEntity implements UserDetails {
+public class UserEntity {
 
     @Id
     @GeneratedValue(generator = "base-uuid")
@@ -40,28 +36,4 @@ public class UserEntity implements UserDetails {
      */
     private Integer status;
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return AuthorityUtils.commaSeparatedStringToAuthorityList("admin,ROLE_dev");
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return this.getStatus() == 1;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return this.getStatus() == 1;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return this.getStatus() == 1;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return this.getStatus() == 1;
-    }
 }

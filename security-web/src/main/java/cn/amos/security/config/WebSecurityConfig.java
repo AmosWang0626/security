@@ -20,7 +20,7 @@ import javax.annotation.Resource;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Resource
-    private UserDetailsService userDetailsService;
+    private UserDetailsService authenticUserDetailsService;
     @Resource
     private PersistentTokenRepository persistentTokenRepository;
 
@@ -59,7 +59,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 记住我
                 .and().rememberMe().tokenRepository(persistentTokenRepository)
                 .tokenValiditySeconds(3600)
-                .userDetailsService(userDetailsService)
+                .userDetailsService(authenticUserDetailsService)
 
                 // 设置同源策略，用于 h2 管理后台页面加载
                 .and().headers().frameOptions().sameOrigin()

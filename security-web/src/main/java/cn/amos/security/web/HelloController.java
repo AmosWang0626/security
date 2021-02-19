@@ -1,5 +1,6 @@
 package cn.amos.security.web;
 
+import cn.amos.security.core.auth.Role;
 import cn.amos.security.dao.entity.UserEntity;
 import cn.amos.security.dao.mapper.UserRepository;
 import org.springframework.security.access.annotation.Secured;
@@ -38,16 +39,16 @@ public class HelloController {
     }
 
     @GetMapping("update")
-    @Secured({"ROLE_dev", "ROLE_ops"})
-    @PreAuthorize("hasAnyAuthority('admin')")
-    @PostAuthorize("hasAnyAuthority('manager')")
+    @Secured({Role.ADMIN})
+    @PreAuthorize("hasAnyAuthority('WRITE')")
+    @PostAuthorize("hasAnyAuthority('GRANT')")
     public String update() {
         System.out.println("post test update...");
         return "Update Security!";
     }
 
     @GetMapping("getAll")
-    @PreAuthorize("hasAnyAuthority('admin')")
+    @PreAuthorize("hasAnyAuthority('READ')")
     @PostFilter("filterObject.age != null and filterObject.age % 2 == 0")
     public List<UserEntity> getAll() {
         Iterable<UserEntity> iterable = userRepository.findAll();
